@@ -37,19 +37,31 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
     </head>
  
     <body>
-     
-        <h2></h2>
+  <div id="corpo" align="center"  style="background:#CCC"  > 
  
-<!-- CADASTRO  -->
-	<form action="add.php" method="post">
-	<table>
+  <table width="50%" border="0">
 		<tr>
-			<td>Produto</td>
-			<td>Qtde</td>
+		<td> <b>Menu:</b></td>
+			<td><a href="produtos.php">Produtos</a></td>
+			<td><a href="tipo_produtos.php">Tipos de Produtos</a></td>
+			<td> <a href="impostos.php">Impostos</a></td>
 		</tr>
+	</table>	
+		
+       
+
+<!-- CADASTRO  -->
+<div style="border:1px solid #CCC;width:80%;margin-top:20px">
+	<form action="add.php" method="post">
+	<div style="background:#FFFFFF" >Gerar Venda</div>
+	<table width="80%"  align="left" style="background:#FFFFFF" border="0">
+	
+			
+		<br/>
+	
 		
 		<tr>
-			<td>
+			<td><b>Produto</b><br/>
 			 <select name="produto" id="produto">
 						  <?php while ($produtos = $stmt_prod->fetch(PDO::FETCH_ASSOC)): ?>
 						<option value="<?php echo $produtos['id'] ?>"><?php echo $produtos['descricao'] . "- R$" . $produtos['valor'] ?></option>
@@ -58,12 +70,12 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
 			</td>
 		
 		<td>
-			<input type="number" size="3" name="qtde" id="qtde"><input type="submit" value="Cadastrar">
+			<b>Qtde</b><br/><input type="number" size="3" name="qtde" id="qtde"><input type="submit" value="Cadastrar Itens">
 		</td>
 		</tr>
 	</table>
     </form>
-		
+	</div>	
  
     </body>
 </html>
@@ -74,7 +86,7 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
  
         <?php if ($total > 0): ?>
  
-        <table width="50%" border="1">
+        <table width="80%" border="1">
             <thead>
                 <tr>
                     <th>Nº</th>
@@ -134,7 +146,7 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
             </tbody>
         </table>
 		
-			<table width="50%" border="1"> 
+			<table width="80%" border="1"> 
 					<tr style="text-align:right">
 						<td><b>Tota Impostos: </b></td>
 						<td><b>Total Venda: </b></td>
@@ -156,12 +168,12 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
 	<form action="add_venda.php" method="post">
 	<table>
 		<td>
-			<input type="submit" value="Concluir Venda">
+			<input type="submit" value="Finalizar Venda">
 		</td>
 		</tr>
 	</table>
     </form>
-		
+</div>		
  
     </body>
 </html>

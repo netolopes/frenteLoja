@@ -4,10 +4,7 @@ require_once 'config.php';
 $produto_id = isset($_POST['produto']) ? $_POST['produto'] : null;
 $qtde = isset($_POST['qtde']) ? $_POST['qtde'] : null;
 
-//$tipo_produto_id = isset($_POST['tipo_produto_id']) ? $_POST['tipo_produto_id'] : null;
-//$valor = isset($_POST['valor']) ? $_POST['valor'] : null;
-//$total_impostos = isset($_POST['total_impostos']) ? $_POST['total_impostos'] : null;
-//$total_venda = isset($_POST['total_venda']) ? $_POST['total_venda'] : null;
+if($qtde != "" && $produto_id != ""){
  
 //get  tipo_produto_id
 $sql = "SELECT tipo_produto_id,valor FROM produtos where id = ".$produto_id;
@@ -53,4 +50,11 @@ else
     print_r($stmt->errorInfo());
 }
 
+}else{
+	
+	echo "<script>alert('Preencha os campos vazios!')</script>";
+	
+}
+
 ?>
+<p><a href="index.php">Voltar</a></p>
