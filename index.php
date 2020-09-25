@@ -40,8 +40,8 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
   <div id="corpo" align="center"  style="background:#CCC"  > 
  
   <table width="50%" border="0">
-		<tr>
-		<td> <b>Menu:</b></td>
+		<tr  style="background:#FFFFFF">
+		<td> <b>Cadastros:</b></td>
 			<td><a href="produtos.php">Produtos</a></td>
 			<td><a href="tipo_produtos.php">Tipos de Produtos</a></td>
 			<td> <a href="impostos.php">Impostos</a></td>
@@ -85,7 +85,7 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
         <p>Total Registros: <?php echo $total ?></p>
  
         <?php if ($total > 0): ?>
- 
+ <form action="add_venda.php" method="post">
         <table width="80%" border="1">
             <thead>
                 <tr>
@@ -165,7 +165,7 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
     </body>
 	
 	<!-- finalizar venda  -->
-	<form action="add_venda.php" method="post">
+	
 	<table>
 		<td>
 			<input type="submit" value="Finalizar Venda">

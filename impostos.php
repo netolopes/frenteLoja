@@ -34,7 +34,18 @@ $stmt_imp->execute();
 		
 			<td><b>Cadastrar Impostos</b></td>
 		</tr>
-		
+		<tr>
+			<td>Tipo produto</td>
+			<td>
+				 <select name="tipo_produto_id" id="tipo_produto_id">
+						<option value="">Selecione</option>
+						  <?php while ($arr_imp = $stmt_imp->fetch(PDO::FETCH_ASSOC)): ?>
+						<option value="<?php echo $arr_imp['id'] ?>"><?php echo $arr_imp['descricao']  ?></option>
+						  <?php endwhile; ?>
+				</select>
+			</td>
+			
+		</tr>
 		<tr>
 			<td>ipi</td>
 			<td>
@@ -63,18 +74,7 @@ $stmt_imp->execute();
 			</td>
 			
 		</tr>
-		<tr>
-			<td>Tipo produto</td>
-			<td>
-				 <select name="tipo_produto_id" id="tipo_produto_id">
-						<option value="">Selecione</option>
-						  <?php while ($arr_imp = $stmt_imp->fetch(PDO::FETCH_ASSOC)): ?>
-						<option value="<?php echo $arr_imp['id'] ?>"><?php echo $arr_imp['descricao']  ?></option>
-						  <?php endwhile; ?>
-				</select>
-			</td>
-			
-		</tr>
+		
 		
 		<tr>
 			<td>
@@ -93,23 +93,20 @@ $stmt_imp->execute();
 		$stmt_list = $conexao->prepare($sql);
 		$stmt_list->execute();
 		?>
-		<h2>Listagem</h2>
+		<h2>Listagem: Imposto do Tipo de produto</h2>
 		 <table width="80%"   border="0">
 		  <tr   style="background:#FFFFFF">
+					<th>Tipo Produto</th>
 					<th>Ipi</th>
 					<th>Icms</th>
 					<th>Pis</th>
 					<th>Cofins</th>
-					<th>Tipo Produto</th>
+					
 			</tr>		
 		 <?php
 		while ($arr_list = $stmt_list->fetch(PDO::FETCH_ASSOC)): ?>
                 <tr style="background:#FFFFFF">
-                    <td><?php echo $arr_list['ipi'] ?></td>
-					<td><?php echo $arr_list['icms'] ?></td>
-					<td><?php echo $arr_list['pis'] ?></td>
-					<td><?php echo $arr_list['cofins'] ?></td>
-					<td>
+				<td>
 					<?php
 						$sqlx = "SELECT id, descricao FROM tipo_produtos ORDER BY id ASC";
 					$stmt_prodx = $conexao->prepare($sqlx);
@@ -124,6 +121,11 @@ $stmt_imp->execute();
 					<?php endwhile; ?>
 					
 					</td>
+                    <td style="text-align:right"><?php echo $arr_list['ipi'] ?></td>
+					<td style="text-align:right"><?php echo $arr_list['icms'] ?></td>
+					<td style="text-align:right"><?php echo $arr_list['pis'] ?></td>
+					<td style="text-align:right"><?php echo $arr_list['cofins'] ?></td>
+					
 				</tr>	
 		<?php endwhile; ?>
 		</table>		
