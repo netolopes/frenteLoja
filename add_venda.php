@@ -1,35 +1,44 @@
 <?php
 require_once 'config.php';
-
-$produto_id = isset($_POST['produto']) ? $_POST['produto'] : null;
-$tipo_produto_id = isset($_POST['tipo_produto_id']) ? $_POST['tipo_produto_id'] : null;
-$valor = isset($_POST['valor']) ? $_POST['valor'] : null;
-$qtde = isset($_POST['qtde']) ? $_POST['qtde'] : null;
-$ipi = isset($_POST['ipi']) ? $_POST['ipi'] : null;
-$icms = isset($_POST['icms']) ? $_POST['icms'] : null;
-$pis = isset($_POST['pis']) ? $_POST['pis'] : null;
-$cofins = isset($_POST['cofins']) ? $_POST['cofins'] : null;
+$sql_count = "SELECT COUNT(id) total FROM aux";
+$stmt_count = $conexao->prepare($sql_count);
+$stmt_count->execute();
+$total = $stmt_count->fetchColumn();
 
 
+if ($total > 0){
+	
+	$sql_del = "DELETE FROM aux ";
+	$stmt_del = $conexao->prepare($sql_del);
+	$stmt_del->execute();
 
 
-/*
-if($produto_id != ""){
+
+
+
+		$sqlx = "SELECT produto_id, tipo_produto_id,valor,qtde,ipi,icms,pis,cofins FROM aux ";
+		$stmt_prodx = $conexao->prepare($sqlx);
+		$stmt_prodx->execute();
+		while ($arrx = $stmt_prodx->fetch(PDO::FETCH_ASSOC)){
+			
+			
+				$sql = "INSERT INTO vendas(produto_id, tipo_produto_id,valor,qtde,ipi,icms,pis,cofins) VALUES(:produto_id, :tipo_produto_id, :valor, :qtde, :ipi, :icms, :pis, :cofins)";
+				$stmt = $conexao->prepare($sql);
+				$stmt->bindParam(':produto_id', $arrx['produto_id']);
+				$stmt->bindParam(':tipo_produto_id', $arrx['tipo_produto_id']);
+				$stmt->bindParam(':valor', $arrx['valor']);
+				$stmt->bindParam(':qtde', $arrx['qtde']);
+				$stmt->bindParam(':ipi', $arrx['ipi']);
+				$stmt->bindParam(':icms', $arrx['icms']);
+				$stmt->bindParam(':pis', $arrx['pis']);
+				$stmt->bindParam(':cofins', $arrx['cofins']);
+				
+		} 
+
+
+
  
-
-$sql = "INSERT INTO aux(produto_id, tipo_produto_id,valor,qtde,ipi,icms,pis,cofins) VALUES(:produto_id, :tipo_produto_id, :valor, :qtde, :ipi, :icms, :pis, :cofins)";
-$stmt = $conexao->prepare($sql);
-$stmt->bindParam(':produto_id', $produto_id);
-$stmt->bindParam(':tipo_produto_id', $tipo_produto_id);
-$stmt->bindParam(':valor', $valor);
-$stmt->bindParam(':qtde', $qtde);
-$stmt->bindParam(':ipi', $ipi);
-$stmt->bindParam(':icms', $icms);
-$stmt->bindParam(':pis', $pis);
-$stmt->bindParam(':cofins', $cofins);
-
- 
-if ($stmt->execute())
+if ($stmt_prodx->execute())
 {
     header('Location: index.php');
 }
@@ -44,6 +53,6 @@ else
 	echo "<script>alert('Preencha os campos vazios!')</script>";
 	
 }
-*/
+
 ?>
 <p><a href="index.php">Voltar</a></p>

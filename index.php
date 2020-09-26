@@ -2,7 +2,7 @@
 require_once 'config.php';
  
 
-$sql_count = "SELECT COUNT(*) AS total FROM aux ORDER BY id ASC";
+$sql_count = "SELECT COUNT(id) total FROM aux";
 $stmt_count = $conexao->prepare($sql_count);
 $stmt_count->execute();
 $total = $stmt_count->fetchColumn();
@@ -51,9 +51,9 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
        
 
 <!-- CADASTRO  -->
-<div style="border:1px solid #CCC;width:80%;margin-top:20px">
+<div style="border:1px solid #CCC;width:80%;margin-top:50px">
 	<form action="add.php" method="post">
-	<div style="background:#FFFFFF" >Gerar Venda</div>
+	<div style="background:#FFFFFF" >Selecione o produto e a qtde abaixo para incluir os itens e depois click em Finalizar  Venda!</div>
 	<table width="80%"  align="left" style="background:#FFFFFF" border="0">
 	
 			
@@ -70,7 +70,7 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
 			</td>
 		
 		<td>
-			<b>Qtde</b><br/><input type="number" size="3" name="qtde" id="qtde"><input type="submit" value="Cadastrar Itens">
+			<b>Qtde</b><br/><input type="number" size="3" name="qtde" id="qtde"><input style="background:#00FF00" type="submit" value="Adicionar Itens">
 		</td>
 		</tr>
 	</table>
@@ -85,7 +85,7 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
         <p>Total Registros: <?php echo $total ?></p>
  
         <?php if ($total > 0): ?>
- <form action="add_venda.php" method="post">
+ 
         <table width="80%" border="1">
             <thead>
                 <tr>
@@ -165,10 +165,10 @@ function totalProdutoComImpostos($ipi,$icms,$pis,$cofins,$valor){
     </body>
 	
 	<!-- finalizar venda  -->
-	
+	<form action="add_venda.php" method="post">
 	<table>
 		<td>
-			<input type="submit" value="Finalizar Venda">
+			<input style="background:#FF0000" type="submit" value="Finalizar Venda">
 		</td>
 		</tr>
 	</table>

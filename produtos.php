@@ -21,7 +21,7 @@ require_once 'config.php';
         <h2></h2>
  
 <!-- CADASTRO  -->
-	<form action="tipo_produtos_add.php" method="post">
+	<form action="produtos_add.php" method="post">
 	<table width="80%" style="border:1px solid #CCC;width:80%" border="0">
 		<tr>
 			<td><b>Cadastrar Produto</b></td>
@@ -48,7 +48,7 @@ require_once 'config.php';
 				$stmt_listy = $conexao->prepare($sql);
 				$stmt_listy->execute();
 				?>
-						<select name="produto" id="produto">
+						<select name="tipo_produto_id" id="tipo_produto_id">
 						  <?php while ($prod = $stmt_listy->fetch(PDO::FETCH_ASSOC)): ?>
 						<option value="<?php echo $prod['id'] ?>"><?php echo $prod['descricao']  ?></option>
 						  <?php endwhile; ?>

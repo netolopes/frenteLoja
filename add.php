@@ -1,15 +1,14 @@
 <?php
 require_once 'config.php';
 
-$produto_id = isset($_POST['produto']) ? $_POST['produto'] : null;
+$produto = isset($_POST['produto']) ? $_POST['produto'] : null;
 $qtde = isset($_POST['qtde']) ? $_POST['qtde'] : null;
 
-if($qtde != "" && $produto_id != ""){
+if($qtde != "" && $produto != ""){
  
 //get  tipo_produto_id
-$sql = "SELECT tipo_produto_id,valor FROM produtos where id = ".$produto_id;
+$sql = "SELECT tipo_produto_id,valor FROM produtos where id = ".$produto;
 $stmt = $conexao->prepare($sql);
-$stmt->bindParam(':produto_id', $produto_id, PDO::PARAM_INT); 
 $stmt->execute();
 $arr = $stmt->fetch(PDO::FETCH_ASSOC);
 $tipo_produto_id = $arr['tipo_produto_id'];
@@ -18,7 +17,6 @@ $valor = $arr['valor'];
 //get impostos
 $sql = "SELECT ipi,icms,pis,cofins FROM impostos where tipo_produto_id = ".$tipo_produto_id;
 $stmt = $conexao->prepare($sql);
-$stmt->bindParam(':produto_id', $produto_id, PDO::PARAM_INT); 
 $stmt->execute();
 $arr = $stmt->fetch(PDO::FETCH_ASSOC);
 $ipi = $arr['ipi'];
@@ -30,7 +28,7 @@ $cofins = $arr['cofins'];
 
 $sql = "INSERT INTO aux(produto_id, tipo_produto_id,valor,qtde,ipi,icms,pis,cofins) VALUES(:produto_id, :tipo_produto_id, :valor, :qtde, :ipi, :icms, :pis, :cofins)";
 $stmt = $conexao->prepare($sql);
-$stmt->bindParam(':produto_id', $produto_id);
+$stmt->bindParam(':produto_id', $produto);
 $stmt->bindParam(':tipo_produto_id', $tipo_produto_id);
 $stmt->bindParam(':valor', $valor);
 $stmt->bindParam(':qtde', $qtde);
